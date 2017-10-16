@@ -25,10 +25,11 @@ public class Connexion {
     public static Connection getConnectionMySQL(String asServer, String asBd, String asPort, String asUt, String asMdp) {
         Connection lcn = null;
         try {
+            Class.forName("org.gjt.mm.mysql.Driver");
             String lsDSN = "jdbc:mysql://" + asServer + ":" + asPort + "/" + asBd;
             lcn = DriverManager.getConnection(lsDSN, asUt, asMdp);
             lcn.setAutoCommit(false);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println("Connection failed : " + e.getMessage());
         }
         return lcn;
